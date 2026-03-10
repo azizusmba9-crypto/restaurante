@@ -1,25 +1,50 @@
-[09-03-2026 16:25] Aziz Kamel: <!DOCTYPE html>
-<html lang="fr">
+[09-03-2026 18:08] Aziz Kamel: <!DOCTYPE html><html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luxury Restaurant</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"><style>
 :root{
   --gold:#d4af37;
   --dark:#0e0e11;
   --card:#1c1c24;
-  --light:#f5f5f5;
 }
-*{box-sizing:border-box}
+
+*{box-sizing:border-box; scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Poppins,sans-serif;
   background:var(--dark);
   color:#fff;
 }
+
+/* ===== NAVBAR ===== */
+.nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:70px;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 40px;
+  z-index:1000;
+  border-bottom:1px solid rgba(212,175,55,.25);
+}
+.logo{
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:28px;
+  font-size:14px;
+  opacity:.85;
+}
+.nav-links a:hover{color:var(--gold)}
 
 /* ===== HERO ===== */
 .hero{
@@ -30,36 +55,23 @@ body{
   justify-content:center;
   text-align:center;
   overflow:hidden;
+  padding-top:70px;
 }
 .hero::before{
   content:"";
   position:absolute; inset:0;
   background:
-    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
     url("g1.jpg") center/cover;
   animation:zoom 20s infinite alternate;
 }
-@keyframes zoom{
-  from{transform:scale(1)}
-  to{transform:scale(1.15)}
-}
-.hero-content{
-  position:relative;
-  z-index:2;
-  padding:20px;
-}
-.hero h1{
-  font-size:56px;
-  letter-spacing:2px;
-  margin-bottom:10px;
-}
-.hero p{
-  opacity:.85;
-  font-size:18px;
-  margin-bottom:40px;
-}
+@keyframes zoom{from{transform:scale(1)} to{transform:scale(1.15)}}
+.hero-content{position:relative; z-index:2; padding:20px}
+.hero h1{font-size:56px; letter-spacing:2px; margin-bottom:10px}
+.hero p{opacity:.85; font-size:18px; margin-bottom:40px}
+
 .btn{
-  padding:14px 32px;
+  padding:14px 34px;
   margin:10px;
   border-radius:40px;
   border:2px solid var(--gold);
@@ -68,12 +80,12 @@ body{
   font-weight:600;
   cursor:pointer;
   transition:.3s;
+  text-decoration:none;
+  display:inline-block;
 }
-.btn:hover{
-  background:var(--gold);
-  color:#000;
-  transform:translateY(-3px);
-}
+.btn:hover{background:var(--gold); color:#000; transform:translateY(-3px)}
+.btn-solid{background:var(--gold); color:#000}
+.btn-solid:hover{filter:brightness(1.1)}
 
 /* ===== SECTION ===== */
 section{padding:90px 20px}
@@ -85,19 +97,13 @@ section{padding:90px 20px}
   letter-spacing:1px;
 }
 
-/* ===== MENU + RESERVATION ===== */
-.menu-reservation{
-  max-width:1200px;
+/* ===== MENU ===== */
+.menu-grid{
+  max-width:1300px;
   margin:auto;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:start;
-}
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(3, 1fr); /* ALWAYS SIDE BY SIDE */
+  gap:35px;
 }
 .card{
   background:var(--card);
@@ -106,207 +112,193 @@ section{padding:90px 20px}
   box-shadow:0 15px 35px rgba(0,0,0,.5);
   transition:.4s;
 }
-.card:hover{transform:translateY(-5px)}
+.card:hover{transform:translateY(-8px)}
 .card img{
   width:100%;
-  height:180px;
+  height:220px;
   object-fit:cover;
   border-bottom:3px solid var(--gold);
 }
-.card-body{
-  padding:15px;
-  text-align:center;
-}
-.card h3{
-  margin:0 0 10px;
+.card-body{padding:22px; text-align:center}
+.card h3{margin:0 0 10px; color:var(--gold)}
+.price{font-weight:700; font-size:18px}
+.order-btn{
+  margin-top:12px;
+  padding:10px 18px;
+  border-radius:20px;
+  border:1px solid var(--gold);
+  background:transparent;
   color:var(--gold);
+  cursor:pointer;
 }
-.card input{
-  width:60px;
-  padding:6px;
-  border-radius:8px;
-  border:none;
-  text-align:center;
-  font-weight:600;
-}
-.price{
-  font-weight:700;
-  font-size:18px;
-  color:#fff;
-  margin-bottom:8px;
-}
+.order-btn:hover{background:var(--gold); color:#000}
 
-/* Form reservation */
+/* ===== RESERVATION ===== */
+.reservation{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+.res-images{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.res-images img{
+  width:100%; height:170px; object-fit:cover;
+  border-radius:18px; border:3px solid var(--gold);
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
 .form-box{
   background:var(--card);
-  padding:25px;
+  padding:35px;
   border-radius:20px;
   box-shadow:0 15px 35px rgba(0,0,0,.5);
 }
-.form-box h3{
-  margin-top:0;
-  color:var(--gold);
-  font-size:26px;
-}
-label{
-  font-size:14px;
-  opacity:.8;
-}
+.form-box h3{margin-top:0; color:var(--gold); font-size:26px}
+label{font-size:14px; opacity:.8}
 input, select{
-  width:100%;
-  padding:12px;
-  margin:10px 0 18px;
-  border-radius:12px;
-  border:none;
+  width:100%; padding:12px; margin:10px 0 18px;
+  border-radius:12px; border:none;
 }
 .submit{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:30px;
-  background:var(--gold);
-  color:#000;
-  font-weight:700;
-  cursor:pointer;
-  transition:.3s;
+  width:100%; padding:15px; border:none; border-radius:30px;
+  background:var(--gold); color:#000; font-weight:700; cursor:pointer;
 }
-.submit:hover{transform:translateY(-2px)}
-
-/* ===== GALLERY ===== */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-top:60px;
-}
+.submit:hover{filter:brightness(1.1)}
+[09-03-2026 18:08] Aziz Kamel: /* ===== GALLERY ===== */
+.gallery{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
 .gallery img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  border-radius:14px;
-  border:2px solid var(--gold);
+  width:100%; height:140px; object-fit:cover;
+  border-radius:14px; border:2px solid var(--gold);
 }
 
 /* ===== CONTACT ===== */
-.contact{
-  text-align:center;
-  margin-top:40px;
-  opacity:.85;
-  line-height:1.9;
-  font-size:15px;
-}
+.contact{ text-align:center; margin-top:60px; opacity:.85; line-height:1.9; font-size:15px }
 
 /* ===== MOBILE ===== */
+@media(max-width:992px){
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:768px){
   .hero h1{font-size:36px}
-  .menu-reservation{grid-template-columns:1fr}
+  .reservation{grid-template-columns:1fr}
   .gallery{grid-template-columns:1fr 1fr}
+  .nav{padding:0 20px}
 }
-</style>
-</head>
-
-<body>
-
-<!-- ===== HERO ===== -->
-<div class="hero">
+@media(max-width:480px){
+  .menu-grid{grid-template-columns:1fr}
+}
+</style></head><body><!-- ===== NAVBAR ===== --><div class="nav">
+  <div class="logo">RESTAURANT CHIC</div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#reservation">Réservation</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div><!-- ===== HERO ===== --><div class="hero">
   <div class="hero-content">
     <h1>Restaurant Chic</h1>
-    <p>Expérience gastronomique élégante & raffinée</p>
+    <p>Expérience gastronomique élégante & raffinée</p><!-- 2 BUTTONS -->
+<a href="#menu" class="btn">Commander</a>
+<a href="#reservation" class="btn btn-solid">Réserver</a>
+
+  </div>
+</div><!-- ===== MENU ===== --><section id="menu">
+  <h2 class="title">Notre Menu</h2>
+  <div class="menu-grid"><div class="card">
+  <img src="burger.jpg">
+  <div class="card-body">
+    <h3>Burger Gourmet</h3>
+    <div class="price">500 DA</div>
+    <button class="order-btn">Commander</button>
   </div>
 </div>
 
-<!-- ===== MENU + RESERVATION ===== -->
-[09-03-2026 16:25] Aziz Kamel: <section id="menu-reserve">
-  <h2 class="title">Notre Menu & Réservation</h2>
-  <div class="menu-reservation">
-    
-    <!-- MENU -->
-    <form class="menu-grid" method="post" action="afficher.php">
-      <div class="card">
-        <img src="burger.jpg">
-        <div class="card-body">
-          <h3>Burger Gourmet</h3>
-          <div class="price">500 DA</div>
-          <input type="number" name="quantite[Burger]" min="0" value="0">
-        </div>
-      </div>
-      <div class="card">
-        <img src="seafood.jpg">
-        <div class="card-body">
-          <h3>Seafood Royal</h3>
-          <div class="price">2000 DA</div>
-          <input type="number" name="quantite[Seafood]" min="0" value="0">
-        </div>
-      </div>
-      <div class="card">
-        <img src="salad.jpg">
-        <div class="card-body">
-          <h3>Salade Fraîche</h3>
-          <div class="price">600 DA</div>
-          <input type="number" name="quantite[Salade]" min="0" value="0">
-        </div>
-      </div>
-      <div class="card">
-        <img src="steak.jpg">
-        <div class="card-body">
-          <h3>Steak Premium</h3>
-          <div class="price">1200 DA</div>
-          <input type="number" name="quantite[Steak]" min="0" value="0">
-        </div>
-      </div>
-      <div class="card">
-        <img src="pasta.jpg">
-        <div class="card-body">
-          <h3>Pâtes Italiennes</h3>
-          <div class="price">700 DA</div>
-          <input type="number" name="quantite[Pasta]" min="0" value="0">
-        </div>
-      </div>
-      <div class="card">
-        <img src="cake.jpg">
-        <div class="card-body">
-          <h3>Cake Signature</h3>
-          <div class="price">800 DA</div>
-          <input type="number" name="quantite[Cake]" min="0" value="0">
-        </div>
-      </div>
+<div class="card">
+  <img src="seafood.jpg">
+  <div class="card-body">
+    <h3>Seafood Royal</h3>
+    <div class="price">2000 DA</div>
+    <button class="order-btn">Commander</button>
+  </div>
+</div>
 
-      <!-- RESERVATION -->
-      <div class="form-box">
-        <h3>Réserver votre table</h3>
-        <label>Type de table</label>
-        <select name="table_type">
-          <option value="1500">Table Luxe — 1500 DA</option>
-          <option value="1000">Table Normale — 1000 DA</option>
-        </select>
-        <label>Date</label>
-        <input type="date" name="date">
-        <label>Heure</label>
-        <input type="time" name="heure">
-        <label>Nombre de personnes</label>
-        <input type="number" name="personnes" placeholder="Ex: 4" min="1">
-        <button class="submit" type="submit">Confirmer</button>
-      </div>
-    </form>
+<div class="card">
+  <img src="salad.jpg">
+  <div class="card-body">
+    <h3>Salade Fraîche</h3>
+    <div class="price">600 DA</div>
+    <button class="order-btn">Commander</button>
+  </div>
+</div>
+
+<div class="card">
+  <img src="steak.jpg">
+  <div class="card-body">
+    <h3>Steak Premium</h3>
+    <div class="price">1200 DA</div>
+    <button class="order-btn">Commander</button>
+  </div>
+</div>
+
+<div class="card">
+  <img src="pasta.jpg">
+  <div class="card-body">
+    <h3>Pâtes Italiennes</h3>
+    <div class="price">700 DA</div>
+    <button class="order-btn">Commander</button>
+  </div>
+</div>
+
+<div class="card">
+  <img src="cake.jpg">
+  <div class="card-body">
+    <h3>Cake Signature</h3>
+    <div class="price">800 DA</div>
+    <button class="order-btn">Commander</button>
+  </div>
+</div>
 
   </div>
-</section>
+</section><!-- ===== RESERVATION ===== --><section id="reservation">
+  <h2 class="title">Réservation</h2>  <div class="reservation">
+    <div class="res-images">
+      <img src="g1.jpg">
+      <img src="g2.jpg">
+      <img src="g3.jpg">
+      <img src="g4.jpg">
+    </div><div class="form-box">
+  <h3>Réserver votre table</h3>
 
-<!-- ===== GALLERY ===== -->
-<section>
+  <label>Type de table</label>
+  <select>
+    <option>Table Luxe — 1500 DA</option>
+    <option>Table Normale — 1000 DA</option>
+  </select>
+
+  <label>Date</label>
+  <input type="date">
+
+  <label>Heure</label>
+  <input type="time">
+
+  <label>Nombre de personnes</label>
+  <input type="number" placeholder="Ex: 4">
+
+  <button class="submit">Confirmer la Réservation</button>
+</div>
+
+  </div>
+</section><!-- ===== FOOTER / GALLERY ===== --><section id="contact">
   <h2 class="title">Notre Restaurant</h2>
   <div class="gallery">
     <img src="g1.jpg">
     <img src="g2.jpg">
     <img src="g3.jpg">
     <img src="g4.jpg">
-  </div>
-
-  <div class="contact">
+  </div>  <div class="contact" style="margin-top:20px;">
     &copy; 2026 Aziz Kamel<br>
     Email : azizusmba9@gmail.com | Téléphone : 0659884800
   </div>
-</section>
-
-</body>
+</section></body>
 </html>
