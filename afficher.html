@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Votre commande</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0f1720; /* خلفية داكنة */
+    color:#fff;
+    min-height:100vh;
+}
+
+.commande{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.produit{
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 15px;
+    font-weight: 600;
+    display:flex;
+    justify-content:space-between;
+}
+
+.total{
+    margin-top:20px;
+    font-size:22px;
+    color:#d4af37; /* ذهبي */
+    font-weight:700;
+}
+
+a{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#d4af37;
+    color:#000;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+a:hover{
+    background:#b9932f;
+}
+
+h2{
+    font-size:28px;
+    margin-bottom:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="commande">
+<h2>Votre commande</h2>
+
+<?php
+// قائمة الأسعار
+$prix = [
+    "Pizza marguerite"=>300,
+    "Pizza végétarienne"=>400,
+    "Pizza 4 saison"=>600,
+    "Burger simple"=>200,
+    "Burger double viande"=>350,
+    "Tacos poulet"=>500,
+    "Tacos viande"=>600
+];
+
+$total = 0;
+
+if(!empty($_POST['quantite'])){
+    foreach($_POST['quantite'] as $produit=>$qte){
+        $qte=(int)$qte;
+        if($qte>0){
+            $sousTotal=$prix[$produit]*$qte;
+            echo "<div class='produit'><span>$produit x $qte</span><span>$sousTotal DA</span></div>";
+            $total+=$sousTotal;
+        }
+    }
+}
+
+if($total==0){
+    echo "<p>Aucun produit sélectionné.</p>";
+}
+
+echo "<div class='total'>Total : $total DA</div>";
+?>
+
+<a href="index.php">Retour au menu</a>
+</div>
+
+</body>
+</html>
