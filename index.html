@@ -1,304 +1,430 @@
-[09-03-2026 18:08] Aziz Kamel: <!DOCTYPE html><html lang="fr">
+[10-03-2026 21:36] Aziz Kamel: <!-- index.php — Restaurant Azka (Commande + Réservation combinées) --><!DOCTYPE html><html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxury Restaurant</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"><style>
+<title>Restaurant Azka</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><style>
+/* ================= GLOBAL ================= */
 :root{
-  --gold:#d4af37;
-  --dark:#0e0e11;
-  --card:#1c1c24;
+    --gold:#d4af37;
+    --gold-soft:#f1d27a;
+    --dark:#0e0f13;
+    --dark-2:#151821;
+    --glass:rgba(255,255,255,0.10);
+    --glass-strong:rgba(255,255,255,0.18);
 }
 
-*{box-sizing:border-box; scroll-behavior:smooth}
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    /* خلفية مطعم فاخرة */
+    background:url('resto_bg.jpg') center/cover no-repeat fixed;
+    color:#fff;
+}
+
 body{
-  margin:0;
-  font-family:Poppins,sans-serif;
-  background:var(--dark);
-  color:#fff;
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:url('background.jpg') center/cover no-repeat fixed;
+    color:#fff;
 }
 
-/* ===== NAVBAR ===== */
-.nav{
-  position:fixed;
-  top:0; left:0; right:0;
-  height:70px;
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 40px;
-  z-index:1000;
-  border-bottom:1px solid rgba(212,175,55,.25);
+.overlay{
+    min-height:100%;
+    background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.75));
+    padding:40px 20px 60px;
 }
-.logo{
-  font-weight:700;
-  letter-spacing:2px;
-  color:var(--gold);
-}
-.nav-links a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:28px;
-  font-size:14px;
-  opacity:.85;
-}
-.nav-links a:hover{color:var(--gold)}
 
-/* ===== HERO ===== */
-.hero{
-  height:100vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-  padding-top:70px;
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:auto;
 }
-.hero::before{
-  content:"";
-  position:absolute; inset:0;
-  background:
-    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-    url("g1.jpg") center/cover;
-  animation:zoom 20s infinite alternate;
+
+/* ================= HEADER ================= */
+.header{
+    text-align:center;
+    margin-bottom:30px;
 }
-@keyframes zoom{from{transform:scale(1)} to{transform:scale(1.15)}}
-.hero-content{position:relative; z-index:2; padding:20px}
-.hero h1{font-size:56px; letter-spacing:2px; margin-bottom:10px}
-.hero p{opacity:.85; font-size:18px; margin-bottom:40px}
+
+.brand{
+    font-family:'Playfair Display',serif;
+    font-size:44px;
+    letter-spacing:2px;
+    margin:0;
+}
+
+.brand span{color:var(--gold)}
+
+.tagline{
+    margin-top:10px;
+    font-weight:300;
+    opacity:.9;
+}
+
+.divider{
+    width:120px;
+    height:3px;
+    margin:18px auto 0;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius:3px;
+}
+
+/* ================= LAYOUT ================= */
+.main-grid{
+    display:grid;
+    grid-template-columns: .9fr 1.1fr; /* gauche réservation / droite commande */
+    gap:30px;
+}
+.gallery{margin-top:22px}
+.gallery-title{
+    font-weight:600;
+    margin-bottom:10px;
+    color:var(--gold-soft);
+}
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr); /* 3 صور فالسطر حتى في الهاتف */
+    gap:10px;
+}
+.gallery-grid img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    transition:.3s;
+}
+.gallery-grid img:hover{transform:scale(1.04)}
+.gallery-grid img{
+    width:100%;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    transition:.3s;
+}
+.gallery-grid img:hover{transform:scale(1.04)}
+
+@media(max-width:900px){
+    .main-grid{grid-template-columns:1fr}
+}
+
+.card{
+    background:var(--glass);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-radius:28px;
+    padding:26px;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.card-title{
+    margin:0 0 18px 0;
+    font-size:26px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.card-title span{
+    font-weight:300;
+    font-size:14px;
+    opacity:.8;
+}
+
+/* ================= MENU ================= */
+.menu-section{margin-bottom:26px}
+
+.section-title{
+    font-size:20px;
+    margin:10px 0 14px;
+    font-weight:600;
+    color:var(--gold-soft);
+}
+
+.food-image{
+    width:100%;
+    border-radius:20px;
+    margin-bottom:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+.item{
+    background:rgba(0,0,0,.40);
+    border-radius:18px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:8px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    transition:.25s;
+}
+.item:hover{transform:translateY(-4px);background:rgba(212,175,55,.15)}
+
+.dish-img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.dish-info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.dish-name{
+    font-weight:600;
+    font-size:14px;
+}
+
+.dish-price{
+    font-weight:700;
+    color:var(--gold-soft);
+    font-size:14px;
+}
+[10-03-2026 21:36] Aziz Kamel: .qty{
+    width:100%;
+    padding:7px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+    font-weight:700;
+}
+
+.item:hover{
+    transform:translateY(-2px);
+    background:rgba(212,175,55,.15);
+}
+
+.label{
+    font-weight:600;
+    font-size:15px;
+}
+
+.price{
+    font-weight:700;
+    color:var(--gold-soft);
+    margin-left:6px;
+}
+
+.qty{
+    width:70px;
+    padding:6px;
+    border-radius:8px;
+    border:none;
+    text-align:center;
+    font-weight:700;
+}
+
+/* ================= RESERVATION ================= */
+.form-group{margin:12px 0}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    margin-bottom:6px;
+    opacity:.9;
+}
+
+.input,
+.select,
+.textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:12px;
+    border:none;
+    font-family:'Poppins',sans-serif;
+}
+
+.textarea{resize:vertical}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+/* ================= SUMMARY ================= */
+.summary{
+    margin-top:18px;
+    padding:14px;
+    border-radius:14px;
+    background:rgba(0,0,0,.35);
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* ================= ACTIONS ================= */
+.actions{
+    text-align:center;
+    margin-top:28px;
+}
 
 .btn{
-  padding:14px 34px;
-  margin:10px;
-  border-radius:40px;
-  border:2px solid var(--gold);
-  background:transparent;
-  color:var(--gold);
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
-  text-decoration:none;
-  display:inline-block;
-}
-.btn:hover{background:var(--gold); color:#000; transform:translateY(-3px)}
-.btn-solid{background:var(--gold); color:#000}
-.btn-solid:hover{filter:brightness(1.1)}
-
-/* ===== SECTION ===== */
-section{padding:90px 20px}
-.title{
-  text-align:center;
-  font-size:40px;
-  color:var(--gold);
-  margin-bottom:60px;
-  letter-spacing:1px;
+    padding:16px 46px;
+    font-size:18px;
+    font-weight:700;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    background:linear-gradient(135deg, #ff7a59, #ff3d2e);
+    color:#fff;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
-/* ===== MENU ===== */
+.btn:hover{transform:translateY(-2px)}
+
+.footer-note{
+    text-align:center;
+    margin-top:22px;
+    font-size:12px;
+    opacity:.7;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+    .main-grid{grid-template-columns:1fr}
+}
+
+</style></head><body>
+<div class="overlay">
+<div class="container"><header class="header">
+    <h1 class="brand">Restaurant <span>Azka</span></h1>
+    <div class="tagline">Cuisine savoureuse • Ambiance élégante • Service premium</div>
+    <div class="divider"></div>
+</header><form method="POST" action="confirmation.php"><div class="main-grid"><!-- ================= COMMANDE ================= --><section class="card">
+    <h2 class="card-title">Commande <span>Choisissez vos plats</span></h2><style>
 .menu-grid{
-  max-width:1300px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr); /* ALWAYS SIDE BY SIDE */
-  gap:35px;
-}
-.card{
-  background:var(--card);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 15px 35px rgba(0,0,0,.5);
-  transition:.4s;
-}
-.card:hover{transform:translateY(-8px)}
-.card img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-bottom:3px solid var(--gold);
-}
-.card-body{padding:22px; text-align:center}
-.card h3{margin:0 0 10px; color:var(--gold)}
-.price{font-weight:700; font-size:18px}
-.order-btn{
-  margin-top:12px;
-  padding:10px 18px;
-  border-radius:20px;
-  border:1px solid var(--gold);
-  background:transparent;
-  color:var(--gold);
-  cursor:pointer;
-}
-.order-btn:hover{background:var(--gold); color:#000}
+display:grid;
+grid-template-columns:repeat(3, 1fr); /* 3 أطباق في السطر */
+gap:18px;
 
-/* ===== RESERVATION ===== */
-.reservation{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-}
-.res-images{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-.res-images img{
-  width:100%; height:170px; object-fit:cover;
-  border-radius:18px; border:3px solid var(--gold);
-  box-shadow:0 10px 25px rgba(0,0,0,.4);
-}
-.form-box{
-  background:var(--card);
-  padding:35px;
-  border-radius:20px;
-  box-shadow:0 15px 35px rgba(0,0,0,.5);
-}
-.form-box h3{margin-top:0; color:var(--gold); font-size:26px}
-label{font-size:14px; opacity:.8}
-input, select{
-  width:100%; padding:12px; margin:10px 0 18px;
-  border-radius:12px; border:none;
-}
-.submit{
-  width:100%; padding:15px; border:none; border-radius:30px;
-  background:var(--gold); color:#000; font-weight:700; cursor:pointer;
-}
-.submit:hover{filter:brightness(1.1)}
-[09-03-2026 18:08] Aziz Kamel: /* ===== GALLERY ===== */
-.gallery{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
-.gallery img{
-  width:100%; height:140px; object-fit:cover;
-  border-radius:14px; border:2px solid var(--gold);
-}
+} @media(max-width:900px){ .menu-grid{grid-template-columns:repeat(3,1fr);} /* حتى في الهاتف يبقاو 3 */ } @media(max-width:900px){ .menu-grid{grid-template-columns:1fr 1fr} } @media(max-width:600px){ .menu-grid{grid-template-columns:1fr} } .menu-block{ background:rgba(0,0,0,.25); padding:14px; border-radius:18px; } .menu-block .section-title{margin-top:0} @media(max-width:700px){ .menu-grid{grid-template-columns:1fr} } </style>
 
-/* ===== CONTACT ===== */
-.contact{ text-align:center; margin-top:60px; opacity:.85; line-height:1.9; font-size:15px }
+<div class="menu-grid">
 
-/* ===== MOBILE ===== */
-@media(max-width:992px){
-  .menu-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:768px){
-  .hero h1{font-size:36px}
-  .reservation{grid-template-columns:1fr}
-  .gallery{grid-template-columns:1fr 1fr}
-  .nav{padding:0 20px}
-}
-@media(max-width:480px){
-  .menu-grid{grid-template-columns:1fr}
-}
-</style></head><body><!-- ===== NAVBAR ===== --><div class="nav">
-  <div class="logo">RESTAURANT CHIC</div>
-  <div class="nav-links">
-    <a href="#menu">Menu</a>
-    <a href="#reservation">Réservation</a>
-    <a href="#contact">Contact</a>
-  </div>
-</div><!-- ===== HERO ===== --><div class="hero">
-  <div class="hero-content">
-    <h1>Restaurant Chic</h1>
-    <p>Expérience gastronomique élégante & raffinée</p><!-- 2 BUTTONS -->
-<a href="#menu" class="btn">Commander</a>
-<a href="#reservation" class="btn btn-solid">Réserver</a>
+    <!-- Ligne 1 -->
+    <div class="menu-block">
+        <div class="section-title">Pizzas</div>
+        <img src="pizza.jpg" class="food-image" alt="pizza">
+        <div class="item">
+            <img src="pizza_margherita.jpg" class="dish-img" alt="pizza marguerite">
+            <div class="dish-info">
+                <div class="dish-name">Pizza marguerite</div>
+                <div class="dish-price">300 DA</div>
+            </div>
+            <input class="qty" type="number" name="quantite[Pizza marguerite]" min="0" value="0">
+        </div>
+        <div class="item"><div><div class="label">Pizza végétarienne</div><div class="price">400 DA</div></div><input class="qty" type="number" name="quantite[Pizza végétarienne]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Pizza 4 saison</div><div class="price">600 DA</div></div><input class="qty" type="number" name="quantite[Pizza 4 saison]" min="0" value="0"></div>
+    </div>
 
-  </div>
-</div><!-- ===== MENU ===== --><section id="menu">
-  <h2 class="title">Notre Menu</h2>
-  <div class="menu-grid"><div class="card">
-  <img src="burger.jpg">
-  <div class="card-body">
-    <h3>Burger Gourmet</h3>
-    <div class="price">500 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+    <div class="menu-block">
+        <div class="section-title">Burgers</div>
+[10-03-2026 21:36] Aziz Kamel: <img src="burger.jpg" class="food-image" alt="burger">
+        <div class="item"><div><div class="label">Burger simple</div><div class="price">200 DA</div></div><input class="qty" type="number" name="quantite[Burger simple]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Burger double viande</div><div class="price">350 DA</div></div><input class="qty" type="number" name="quantite[Burger double viande]" min="0" value="0"></div>
+    </div>
+
+    <div class="menu-block">
+        <div class="section-title">Salades</div>
+        <img src="salad.jpg" class="food-image" alt="salade">
+        <div class="item"><div><div class="label">Salade César</div><div class="price">450 DA</div></div><input class="qty" type="number" name="quantite[Salade César]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Salade Mixte</div><div class="price">300 DA</div></div><input class="qty" type="number" name="quantite[Salade Mixte]" min="0" value="0"></div>
+    </div>
+
+    <!-- Ligne 2 -->
+    <div class="menu-block">
+        <div class="section-title">Tacos</div>
+        <img src="tacos.jpg" class="food-image" alt="tacos">
+        <div class="item"><div><div class="label">Tacos poulet</div><div class="price">500 DA</div></div><input class="qty" type="number" name="quantite[Tacos poulet]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Tacos viande</div><div class="price">600 DA</div></div><input class="qty" type="number" name="quantite[Tacos viande]" min="0" value="0"></div>
+    </div>
+
+    <div class="menu-block">
+        <div class="section-title">Steaks</div>
+        <img src="steak.jpg" class="food-image" alt="steak">
+        <div class="item"><div><div class="label">Steak grillé</div><div class="price">1200 DA</div></div><input class="qty" type="number" name="quantite[Steak grillé]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Steak sauce champignon</div><div class="price">1400 DA</div></div><input class="qty" type="number" name="quantite[Steak sauce champignon]" min="0" value="0"></div>
+    </div>
+
+    <div class="menu-block">
+        <div class="section-title">Desserts</div>
+        <img src="cake.jpg" class="food-image" alt="dessert">
+        <div class="item"><div><div class="label">Chocolate Cake</div><div class="price">350 DA</div></div><input class="qty" type="number" name="quantite[Chocolate Cake]" min="0" value="0"></div>
+        <div class="item"><div><div class="label">Tiramisu</div><div class="price">400 DA</div></div><input class="qty" type="number" name="quantite[Tiramisu]" min="0" value="0"></div>
+    </div>
+
 </div>
 
-<div class="card">
-  <img src="seafood.jpg">
-  <div class="card-body">
-    <h3>Seafood Royal</h3>
-    <div class="price">2000 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+</section><!-- ================= RESERVATION ================= --><section class="card">
+    <h2 class="card-title">Réservation <span>Réservez votre table</span></h2><div class="form-group">
+    <label>Nom complet</label>
+    <input class="input" type="text" name="nom" required>
 </div>
 
-<div class="card">
-  <img src="salad.jpg">
-  <div class="card-body">
-    <h3>Salade Fraîche</h3>
-    <div class="price">600 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<div class="form-group">
+    <label>Téléphone</label>
+    <input class="input" type="tel" name="telephone" required>
 </div>
 
-<div class="card">
-  <img src="steak.jpg">
-  <div class="card-body">
-    <h3>Steak Premium</h3>
-    <div class="price">1200 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<div class="grid-2">
+    <div class="form-group">
+        <label>Date</label>
+        <input class="input" type="date" name="date" required>
+    </div>
+    <div class="form-group">
+        <label>Heure</label>
+        <input class="input" type="time" name="heure" required>
+    </div>
 </div>
 
-<div class="card">
-  <img src="pasta.jpg">
-  <div class="card-body">
-    <h3>Pâtes Italiennes</h3>
-    <div class="price">700 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<div class="form-group">
+    <label>Nombre de personnes</label>
+    <select class="select" name="personnes">
+        <option>1 personne</option>
+        <option>2 personnes</option>
+        <option>3 personnes</option>
+        <option>4 personnes</option>
+        <option>5 personnes</option>
+        <option>6 personnes</option>
+        <option>7+ personnes</option>
+    </select>
 </div>
 
-<div class="card">
-  <img src="cake.jpg">
-  <div class="card-body">
-    <h3>Cake Signature</h3>
-    <div class="price">800 DA</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<div class="form-group">
+    <label>Remarques</label>
+    <textarea class="textarea" name="remarques" rows="4"></textarea>
 </div>
 
-  </div>
-</section><!-- ===== RESERVATION ===== --><section id="reservation">
-  <h2 class="title">Réservation</h2>  <div class="reservation">
-    <div class="res-images">
-      <img src="g1.jpg">
-      <img src="g2.jpg">
-      <img src="g3.jpg">
-      <img src="g4.jpg">
-    </div><div class="form-box">
-  <h3>Réserver votre table</h3>
-
-  <label>Type de table</label>
-  <select>
-    <option>Table Luxe — 1500 DA</option>
-    <option>Table Normale — 1000 DA</option>
-  </select>
-
-  <label>Date</label>
-  <input type="date">
-
-  <label>Heure</label>
-  <input type="time">
-
-  <label>Nombre de personnes</label>
-  <input type="number" placeholder="Ex: 4">
-
-  <button class="submit">Confirmer la Réservation</button>
+<div class="summary">
+    ✔ Vous pouvez commander plusieurs plats<br>
+    ✔ Choisissez la quantité pour chaque produit<br>
+    ✔ Réservation et commande envoyées ensemble
 </div>
-
-  </div>
-</section><!-- ===== FOOTER / GALLERY ===== --><section id="contact">
-  <h2 class="title">Notre Restaurant</h2>
-  <div class="gallery">
-    <img src="g1.jpg">
-    <img src="g2.jpg">
-    <img src="g3.jpg">
-    <img src="g4.jpg">
-  </div>  <div class="contact" style="margin-top:20px;">
-    &copy; 2026 Aziz Kamel<br>
-    Email : azizusmba9@gmail.com | Téléphone : 0659884800
-  </div>
-</section></body>
+[10-03-2026 21:36] Aziz Kamel: <div class="gallery">
+        <div class="gallery-title">Galerie du restaurant</div>
+        <div class="gallery-grid">
+            <img src="resto1.jpg" alt="restaurant">
+            <img src="resto2.jpg" alt="restaurant">
+            <img src="resto3.jpg" alt="restaurant">
+            <img src="resto4.jpg" alt="restaurant">
+            <img src="resto5.jpg" alt="restaurant">
+            <img src="resto6.jpg" alt="restaurant">
+        </div>
+    </div></section></div><div class="actions">
+    <button class="btn" type="submit">Confirmer la commande & la réservation</button>
+</div><div class="footer-note">
+    © 2026 Restaurant Azka — Welcome & Bon appétit
+</div></form>
+</div>
+</div>
+</body>
 </html>
