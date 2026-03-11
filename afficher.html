@@ -1,109 +1,107 @@
+<?php
+// confirmation.php
+
+// جدول الأسعار لكل طبق
+$prix = [
+    "Burger simple"=>200,
+    "Burger double viande"=>350,
+    "Pasta poulet"=>500,
+    "Pasta crevettes"=>1000,
+    "Seafood nrml"=>1200,
+    "Seafood crevettes"=>2000,
+    "Steak nrml"=>1500,
+    "Steak légumes"=>1700,
+    "Salade simple"=>300,
+    "Salade César"=>600,
+    "Chocolate Cake"=>300,
+    "Cake morjan"=>450
+];
+
+// جدول صور لكل طبق
+$images = [
+    "Burger simple"=>"burger.jpg",
+    "Burger double viande"=>"burger.jpg",
+    "Pasta poulet"=>"pasta.jpg",
+    "Pasta crevettes"=>"pasta.jpg",
+    "Seafood nrml"=>"seafood.jpg",
+    "Seafood crevettes"=>"seafood.jpg",
+    "Steak nrml"=>"steak.jpg",
+    "Steak légumes"=>"steak.jpg",
+    "Salade simple"=>"salad.jpg",
+    "Salade César"=>"salad.jpg",
+    "Chocolate Cake"=>"cake.jpg",
+    "Cake morjan"=>"cake.jpg"
+];
+
+// récupérer les données du formulaire
+$nom = $_POST['nom'] ?? '';
+$telephone = $_POST['telephone'] ?? '';
+$date = $_POST['date'] ?? '';
+$heure = $_POST['heure'] ?? '';
+$personnes = $_POST['personnes'] ?? '';
+$remarques = $_POST['remarques'] ?? '';
+$quantites = $_POST['quantite'] ?? [];
+
+$total = 0;
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Votre commande</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmation - Restaurant Azka</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:#0f1720; /* خلفية داكنة */
-    color:#fff;
-    min-height:100vh;
-}
-
-.commande{
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    width: 90%;
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 25px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    text-align: center;
-}
-
-.produit{
-    background: rgba(255,255,255,0.1);
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 15px;
-    font-weight: 600;
-    display:flex;
-    justify-content:space-between;
-}
-
-.total{
-    margin-top:20px;
-    font-size:22px;
-    color:#d4af37; /* ذهبي */
-    font-weight:700;
-}
-
-a{
-    display:inline-block;
-    margin-top:20px;
-    padding:12px 25px;
-    background:#d4af37;
-    color:#000;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:600;
-    transition:.3s;
-}
-
-a:hover{
-    background:#b9932f;
-}
-
-h2{
-    font-size:28px;
-    margin-bottom:20px;
-}
+body{font-family:'Poppins',sans-serif;background:#111;color:#fff;margin:0;padding:20px;}
+.container{max-width:1000px;margin:auto;}
+h1,h2{text-align:center;color:#d4af37;}
+.summary{background:rgba(255,255,255,0.05);padding:20px;border-radius:16px;margin-top:20px;}
+.item-summary{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.item-summary img{width:80px;height:80px;object-fit:cover;border-radius:10px;}
+.item-info{flex:1;}
+.total{font-weight:700;font-size:20px;text-align:right;margin-top:12px;color:#ffcc00;}
+.footer-note{text-align:center;margin-top:28px;font-size:16px;opacity:.85;}
 </style>
 </head>
 <body>
+<div class="container">
+<h1>✅ Commande reçue avec succès !</h1>
+<h2>Résumé de votre commande et réservation</h2>
 
-<div class="commande">
-<h2>Votre commande</h2>
-
-<?php
-// قائمة الأسعار
-$prix = [
-    "Pizza marguerite"=>300,
-    "Pizza végétarienne"=>400,
-    "Pizza 4 saison"=>600,
-    "Burger simple"=>200,
-    "Burger double viande"=>350,
-    "Tacos poulet"=>500,
-    "Tacos viande"=>600
-];
-
-$total = 0;
-
-if(!empty($_POST['quantite'])){
-    foreach($_POST['quantite'] as $produit=>$qte){
-        $qte=(int)$qte;
-        if($qte>0){
-            $sousTotal=$prix[$produit]*$qte;
-            echo "<div class='produit'><span>$produit x $qte</span><span>$sousTotal DA</span></div>";
-            $total+=$sousTotal;
-        }
-    }
-}
-
-if($total==0){
-    echo "<p>Aucun produit sélectionné.</p>";
-}
-
-echo "<div class='total'>Total : $total DA</div>";
-?>
-
-<a href="index.php">Retour au menu</a>
+<div class="summary">
+<h3>Informations client :</h3>
+<p><strong>Nom :</strong> <?php echo htmlspecialchars($nom); ?></p>
+<p><strong>Téléphone :</strong> <?php echo htmlspecialchars($telephone); ?></p>
+<p><strong>Date :</strong> <?php echo htmlspecialchars($date); ?> à <?php echo htmlspecialchars($heure); ?></p>
+<p><strong>Nombre de personnes :</strong> <?php echo htmlspecialchars($personnes); ?></p>
+<p><strong>Remarques :</strong> <?php echo nl2br(htmlspecialchars($remarques)); ?></p>
 </div>
 
+<div class="summary">
+<h3>Plats commandés :</h3>
+<?php
+foreach($quantites as $plat => $qte){
+    if($qte>0){
+        $prix_plat = $prix[$plat] ?? 0;
+        $sous_total = $prix_plat * $qte;
+        $total += $sous_total;
+        $img = $images[$plat] ?? '';
+        echo '<div class="item-summary">';
+        if($img) echo "<img src='$img' alt='$plat'>";
+        echo "<div class='item-info'><strong>$plat</strong><br>Prix unitaire : $prix_plat DA<br>Quantité : $qte<br>Sous-total : $sous_total DA</div>";
+        echo "</div>";
+    }
+}
+?>
+<div class="total">Total général : <?php echo $total; ?> DA</div>
+</div>
+
+<div class="footer-note">
+Merci pour votre commande ! Nous espérons vous voir bientôt.<br>
+Contact : 0556 69 32 43 | Email : azkart.studio@gmail.com
+</div>
+
+</div>
 </body>
 </html>
