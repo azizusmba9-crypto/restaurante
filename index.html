@@ -1,4 +1,4 @@
-[11-03-2026 6:42] Aziz Kamel: <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -56,7 +56,7 @@ html,body{margin:0;font-family:'Poppins',sans-serif;color:#fff;background:url('g
 @media(max-width:900px){
   .main-grid{grid-template-columns:1fr;}
   .menu-grid{grid-template-columns:1fr;}
-[11-03-2026 6:42] Aziz Kamel: .gallery-grid{grid-template-columns:1fr;}
+[11-03-2026 20:56] Aziz Kamel: .gallery-grid{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
   .main-grid{grid-template-columns:1fr;}
@@ -89,7 +89,7 @@ function updateTotal(){
 <form method="POST" action="confirmation.php">
 <div class="main-grid">
 
-<!-- COMMANDE -->
+<!-- COMMANDE (الأطباق مع السعر والكمية) -->
 <section class="card">
 <h2 class="card-title">Commande</h2>
 <div class="menu-grid">
@@ -102,7 +102,6 @@ function updateTotal(){
       <div class="item-row"><div class="dish-name">Burger double viande</div><div class="dish-price">350 DA</div><input class="qty" type="number" name="quantite[Burger double viande]" min="0" value="0" oninput="updateTotal()"></div>
     </div>
   </div>
-
   <!-- PASTA -->
   <div class="menu-block">
     <div class="section-title">Pasta</div>
@@ -112,7 +111,6 @@ function updateTotal(){
       <div class="item-row"><div class="dish-name">Pasta crevettes</div><div class="dish-price">1000 DA</div><input class="qty" type="number" name="quantite[Pasta crevettes]" min="0" value="0" oninput="updateTotal()"></div>
     </div>
   </div>
-
   <!-- SALADE -->
   <div class="menu-block">
     <div class="section-title">Salade</div>
@@ -122,7 +120,6 @@ function updateTotal(){
       <div class="item-row"><div class="dish-name">Salade César</div><div class="dish-price">600 DA</div><input class="qty" type="number" name="quantite[Salade César]" min="0" value="0" oninput="updateTotal()"></div>
     </div>
   </div>
-
   <!-- SEAFOOD -->
   <div class="menu-block">
     <div class="section-title">Seafood</div>
@@ -132,17 +129,15 @@ function updateTotal(){
       <div class="item-row"><div class="dish-name">Seafood crevettes</div><div class="dish-price">2000 DA</div><input class="qty" type="number" name="quantite[Seafood crevettes]" min="0" value="0" oninput="updateTotal()"></div>
     </div>
   </div>
-
   <!-- STEAK -->
-  <div class="menu-block">
-[11-03-2026 6:42] Aziz Kamel: <div class="section-title">Steak</div>
+<div class="menu-block">
+    <div class="section-title">Steak</div>
     <img src="steak.jpg" class="food-image">
     <div class="items-group">
       <div class="item-row"><div class="dish-name">Steak nrml</div><div class="dish-price">1500 DA</div><input class="qty" type="number" name="quantite[Steak nrml]" min="0" value="0" oninput="updateTotal()"></div>
       <div class="item-row"><div class="dish-name">Steak légumes</div><div class="dish-price">1700 DA</div><input class="qty" type="number" name="quantite[Steak légumes]" min="0" value="0" oninput="updateTotal()"></div>
     </div>
   </div>
-
   <!-- CAKE -->
   <div class="menu-block">
     <div class="section-title">Cake</div>
@@ -156,7 +151,7 @@ function updateTotal(){
 <div id="totalDisplay" class="total">Total: 0 DA</div>
 </section>
 
-<!-- RESERVATION -->
+<!-- RESERVATION مع صور المطعم والفقرة التوضيحية -->
 <section class="card">
 <h2 class="card-title">Réservation</h2>
 <div class="form-group"><label>Nom complet</label><input class="input" type="text" name="nom" required></div>
@@ -178,13 +173,23 @@ function updateTotal(){
 </select>
 </div>
 <div class="form-group"><label>Remarques</label><textarea class="textarea" name="remarques" rows="4"></textarea></div>
+
+<h3 class="gallery-title">Notre Restaurant</h3>
+<div class="gallery-grid">
+<img src="g2.jpg" alt="Restaurant 1">
+<img src="g3.jpg" alt="Restaurant 2">
+<img src="g4.jpg" alt="Restaurant 3">
+</div>
+
+<p style="margin-top:15px; font-size:13px; opacity:0.85;">
+Ce site a été créé par <strong>Aziz Kamel</strong>. Il s'agit d'un site de démonstration et ce portfolio est purement fictif. Il présente un exemple de mon premier projet web afin de montrer mes compétences en mise en page, responsive design et intégration de formulaires.
+</p>
 </section>
 
 </div>
 <div class="actions"><button class="btn" type="submit">Commander & Réserver</button></div>
 <div class="footer-note" style="text-align:center;">Contact :<br>Numéro téléphone : 0556 69 32 43<br>Email : azkart.studio@gmail.com</div>
 </form>
-
 </div>
 </div>
 <script>updateTotal();</script>
