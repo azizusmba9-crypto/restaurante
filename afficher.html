@@ -1,107 +1,54 @@
 <?php
-// confirmation.php
-
-// جدول الأسعار لكل طبق
-$prix = [
-    "Burger simple"=>200,
-    "Burger double viande"=>350,
-    "Pasta poulet"=>500,
-    "Pasta crevettes"=>1000,
-    "Seafood nrml"=>1200,
-    "Seafood crevettes"=>2000,
-    "Steak nrml"=>1500,
-    "Steak légumes"=>1700,
-    "Salade simple"=>300,
-    "Salade César"=>600,
-    "Chocolate Cake"=>300,
-    "Cake morjan"=>450
-];
-
-// جدول صور لكل طبق
-$images = [
-    "Burger simple"=>"burger.jpg",
-    "Burger double viande"=>"burger.jpg",
-    "Pasta poulet"=>"pasta.jpg",
-    "Pasta crevettes"=>"pasta.jpg",
-    "Seafood nrml"=>"seafood.jpg",
-    "Seafood crevettes"=>"seafood.jpg",
-    "Steak nrml"=>"steak.jpg",
-    "Steak légumes"=>"steak.jpg",
-    "Salade simple"=>"salad.jpg",
-    "Salade César"=>"salad.jpg",
-    "Chocolate Cake"=>"cake.jpg",
-    "Cake morjan"=>"cake.jpg"
-];
-
-// récupérer les données du formulaire
-$nom = $_POST['nom'] ?? '';
-$telephone = $_POST['telephone'] ?? '';
-$date = $_POST['date'] ?? '';
-$heure = $_POST['heure'] ?? '';
-$personnes = $_POST['personnes'] ?? '';
-$remarques = $_POST['remarques'] ?? '';
-$quantites = $_POST['quantite'] ?? [];
-
-$total = 0;
-?>
-
+// afficher.php
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confirmation - Restaurant Azka</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<title>Confirmation Commande</title>
 <style>
-body{font-family:'Poppins',sans-serif;background:#111;color:#fff;margin:0;padding:20px;}
-.container{max-width:1000px;margin:auto;}
-h1,h2{text-align:center;color:#d4af37;}
-.summary{background:rgba(255,255,255,0.05);padding:20px;border-radius:16px;margin-top:20px;}
-.item-summary{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.item-summary img{width:80px;height:80px;object-fit:cover;border-radius:10px;}
-.item-info{flex:1;}
-.total{font-weight:700;font-size:20px;text-align:right;margin-top:12px;color:#ffcc00;}
-.footer-note{text-align:center;margin-top:28px;font-size:16px;opacity:.85;}
+body{font-family:sans-serif;background:#111;color:#fff;padding:20px}
+h1{color:#d4af37;text-align:center}
+.table{width:100%;border-collapse:collapse;margin-top:15px}
+.table th,.table td{border:1px solid rgba(212,175,55,0.5);padding:8px;text-align:left}
+.total{margin-top:15px;font-size:18px;font-weight:bold;color:#ff7a59}
 </style>
 </head>
 <body>
-<div class="container">
-<h1>✅ Commande reçue avec succès !</h1>
-<h2>Résumé de votre commande et réservation</h2>
 
-<div class="summary">
-<h3>Informations client :</h3>
-<p><strong>Nom :</strong> <?php echo htmlspecialchars($nom); ?></p>
-<p><strong>Téléphone :</strong> <?php echo htmlspecialchars($telephone); ?></p>
-<p><strong>Date :</strong> <?php echo htmlspecialchars($date); ?> à <?php echo htmlspecialchars($heure); ?></p>
-<p><strong>Nombre de personnes :</strong> <?php echo htmlspecialchars($personnes); ?></p>
-<p><strong>Remarques :</strong> <?php echo nl2br(htmlspecialchars($remarques)); ?></p>
-</div>
+<h1>Votre commande est bien recu </h1>
 
-<div class="summary">
-<h3>Plats commandés :</h3>
-<?php
-foreach($quantites as $plat => $qte){
-    if($qte>0){
-        $prix_plat = $prix[$plat] ?? 0;
-        $sous_total = $prix_plat * $qte;
-        $total += $sous_total;
-        $img = $images[$plat] ?? '';
-        echo '<div class="item-summary">';
-        if($img) echo "<img src='$img' alt='$plat'>";
-        echo "<div class='item-info'><strong>$plat</strong><br>Prix unitaire : $prix_plat DA<br>Quantité : $qte<br>Sous-total : $sous_total DA</div>";
-        echo "</div>";
-    }
-}
-?>
-<div class="total">Total général : <?php echo $total; ?> DA</div>
-</div>
+<h2>Informations du client :</h2>
+<ul>
+    <li><strong>Nom:</strong> <?= htmlspecialchars($nom) ?></li>
+    <li><strong>Téléphone:</strong> <?= htmlspecialchars($telephone) ?></li>
+    <li><strong>Date:</strong> <?= htmlspecialchars($date) ?></li>
+    <li><strong>Heure:</strong> <?= htmlspecialchars($heure) ?></li>
+    <li><strong>Nombre de personnes:</strong> <?= htmlspecialchars($personnes) ?></li>
+    <li><strong>Remarques:</strong> <?= nl2br(htmlspecialchars($remarques)) ?></li>
+</ul>
 
-<div class="footer-note">
-Merci pour votre commande ! Nous espérons vous voir bientôt.<br>
-Contact : 0556 69 32 43 | Email : azkart.studio@gmail.com
-</div>
+<h2>Commande :</h2>
+<table class="table">
+<tr>
+    <th>Plat</th>
+    <th>Quantité</th>
+    <th>Prix unitaire</th>
+    <th>Total</th>
+</tr>
+<?php foreach($commande as $plat => 
 
-</div>
+<tr>
+    <td><?= htmlspecialchars($plat) ?></td>
+    <td><?= intval($qty) ?></td>
+    <td><?= $prixUnit ?> DA</td>
+    <td><?= $totalPlat ?> DA</td>
+</tr>
+<?php 
+    endif;
+endforeach; ?>
+</table>
+
+<div class="total">Prix total: <?= $total ?> DA</div>
+
 </body>
 </html>
